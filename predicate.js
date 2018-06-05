@@ -59,7 +59,11 @@ class Predicate {
     }
 
     definitionName() {
-        return this.file + ':' + this.line + ': ' + this.niceName()
+        return this.locationString() + ' ' + this.niceName()
+    }
+
+    locationString() {
+        return this.file + ':' + this.line + ':'
     }
 
     argNamesFrom(string, setDefinition) {
