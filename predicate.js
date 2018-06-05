@@ -1,8 +1,10 @@
 class Predicate {
 
-    constructor(name, text) {
+    constructor(name, text, file, line) {
         this.name = name
         this.text = text
+        this.file = file
+        this.line = line
 
         this.definition = {}
     }
@@ -30,6 +32,10 @@ class Predicate {
             return this.definition.name + '/' + this.definition.args
 
         return this.name
+    }
+
+    definitionName() {
+        return this.file + ':' + this.line + ': ' + this.niceName()
     }
 
     argNamesFrom(string, setDefinition) {

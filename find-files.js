@@ -26,17 +26,17 @@ function findInDir(dir, extension, excludes) {
         }
 
         // Get the path to the file
-        var filename = path.join(dir, file)
+        var filePath = path.join(dir, file)
 
         // Call recursively if this is a direcotory
-        var stats = fs.lstatSync(filename)
+        var stats = fs.lstatSync(filePath)
         if (stats.isDirectory()) {
-            files = files.concat(findInDir(filename, extension, excludes))
+            files = files.concat(findInDir(filePath, extension, excludes))
         }
 
         // Add the file otherwise, if it fith the extension
-        if (filename.endsWith('.' + extension)) {
-            files.push(new PrologFile(filename))
+        if (filePath.endsWith('.' + extension)) {
+            files.push(new PrologFile(filePath, file))
         }
     }
 

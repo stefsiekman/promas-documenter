@@ -2,8 +2,8 @@ const Predicate = require('./predicate')
 
 class StaticPredicate extends Predicate {
 
-    constructor(name, text) {
-        super(name, text)
+    constructor(name, text, file, line) {
+        super(name, text, file, line)
         super.argNamesFrom(name, true)
 
         this.definition.name = this.nameString()

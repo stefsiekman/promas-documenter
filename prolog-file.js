@@ -5,9 +5,10 @@ const StaticPredicate = require('./static-predicate')
 
 class PrologFile {
 
-    constructor(filename) {
+    constructor(path, filename) {
+        this.path = path
         this.filename = filename
-        this.data = fs.readFileSync(filename, {encoding: "utf8"})
+        this.data = fs.readFileSync(path, {encoding: "utf8"})
     }
 
     lines() {
@@ -40,10 +41,10 @@ class PrologFile {
                 continue
 
             // Try to find dynamic predicates
-            var dynamicResult = /([a-zA-Z])+\/([0-9])+/.exec(lines[i])
+            var dynamicResult = /([a-zA-Z])+\/([0-9])+(?=[.,])/.exec(lines[i])
             if (dynamicResult) {
                 this.predicates.push(new DynamicPredicate(dynamicResult[0],
-                    this.commentTextBefore(i)))
+                    this.commentTextBefore(i), this.filename, i + 1))
             }
 
             // Try to find static predicates
@@ -51,7 +52,7 @@ class PrologFile {
             var staticResult = staticRegex.exec(lines[i])
             if (staticResult) {
                 this.predicates.push(new StaticPredicate(staticResult[0],
-                    this.commentTextBefore(i)))
+                    this.commentTextBefore(i), this.filename, i + 1))
             }
         }
     }
