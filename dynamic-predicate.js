@@ -25,8 +25,6 @@ class DynamicPredicate extends Predicate {
             this.text = textArray.join('')
 
             super.argNamesFrom(string)
-
-            console.log("Read arguments", this.args)
         }
 
     }
