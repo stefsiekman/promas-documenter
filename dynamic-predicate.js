@@ -25,6 +25,8 @@ class DynamicPredicate extends Predicate {
             this.text = textArray.join('')
 
             super.argNamesFrom(string)
+        } else {
+            super.readArgumentDescriptions()
         }
 
         // In case nothing could be found

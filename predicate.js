@@ -198,7 +198,7 @@ class Predicate {
             }
         }
 
-        this.warnings.push('Unspecified argument described')
+        this.warnings.push(`Unspecified argument '${name}' described`)
     }
 
     markdownUserLink(user) {
