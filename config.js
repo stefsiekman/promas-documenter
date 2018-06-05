@@ -1,6 +1,6 @@
 module.exports = {
     path: {
-        project: "~/repositories/promas/",
-        wiki: "~/repositories/promas.wiki/"
+        project: "../promas/",
+        wiki: "../promas.wiki/"
     },
 }

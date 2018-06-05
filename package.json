@@ -4,6 +4,7 @@
   "description": "Generates documentation for the ProMAS",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
     "test": "echo \"No tests implemented\""
   },
   "author": "Stef Siekman <s.a.p.siekman@student.tudelft.nl>",
