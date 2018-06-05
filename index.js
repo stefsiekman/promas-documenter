@@ -8,8 +8,7 @@ collection.removeDuplicates()
 
 /*
 for (var predicate of collection.predicates) {
-    console.log(predicate.niceName())
-    console.log(predicate.args)
+    console.log(predicate.score())
 }
 */
 

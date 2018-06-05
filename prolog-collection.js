@@ -50,7 +50,24 @@ class PrologCollection {
 
         this.predicates = newPredicates
 
-        console.log(`A total of ${this.predicates.length} unique predicates`)
+        this.printStats()
+    }
+
+    printStats() {
+        var predicates = this.predicates.length
+        var argumentCount = 0
+        var scoreTotal = 0
+
+        for (var predicate of this.predicates) {
+            argumentCount += predicate.definition.args
+            scoreTotal += predicate.score()
+        }
+
+        var scoreAverage = scoreTotal / predicates
+
+        console.log('Predicates   ', predicates)
+        console.log('Arguments    ', argumentCount)
+        console.log('Average score', ~~scoreAverage)
     }
 
 }
