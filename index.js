@@ -6,7 +6,7 @@ const PrologCollection = require('./prolog-collection')
 const config = require("./config")
 
 cli.enable('help', 'version')
-cli.setApp('ProMAS Documenter', '1.0.0')
+cli.setApp('ProMAS Documenter', require('./package.json').version)
 const options = cli.parse({
     report: ['r', 'Report on the documentation, parses the Prolog', 'on', false],
     generate: ['g', 'Generates the markdown files', 'on', false],

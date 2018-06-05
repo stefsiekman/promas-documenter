@@ -3,8 +3,10 @@
   "version": "1.0.0",
   "description": "Generates documentation for the ProMAS",
   "main": "index.js",
+  "bin": "index.js",
   "scripts": {
     "start": "node index.js",
+    "build": "pkg -t win-x64,win-x86,macos-x64,macos-x86 --out-path dist/ .",
     "test": "echo \"No tests implemented\""
   },
   "author": "Stef Siekman <s.a.p.siekman@student.tudelft.nl>",
@@ -13,5 +15,6 @@
     "cli": "^1.0.1",
     "git-branch": "^2.0.1",
     "moment": "^2.22.2"
-  }
+  },
+  "devDependencies": {}
 }
