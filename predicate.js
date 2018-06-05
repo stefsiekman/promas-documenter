@@ -32,7 +32,7 @@ class Predicate {
 
     argNamesFrom(string) {
         this.args = []
-        for (var arg of string.match(/[A-Z]+[a-zA-Z]+(?!.*\()/g)) {
+        for (var arg of string.match(/[A-Z]+[a-zA-Z]*(?!.*\()/g)) {
             this.args.push({
                 name: arg
             })

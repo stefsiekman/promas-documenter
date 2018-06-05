@@ -13,8 +13,8 @@ class DynamicPredicate extends Predicate {
         // Try to find a definition in the comments
         var defString = text.match(
             new RegExp(this.definition.name + 
-                '\\(([A-Z][a-zA-Z]+,\\s*){' + (this.definition.args - 1) +
-                '}([A-Z][a-zA-Z]+){1}\\)'))
+                '\\(([A-Z][a-zA-Z]*,\\s*){' + (this.definition.args - 1) +
+                '}([A-Z][a-zA-Z]*){1}\\)'))
 
         if (defString) {
             var string = defString[0]
