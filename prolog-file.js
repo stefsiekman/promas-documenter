@@ -48,7 +48,7 @@ class PrologFile {
             }
 
             // Try to find static predicates
-            var staticRegex = /[a-zA-Z]+\(([A-Z]+[a-zA-Z]+\,\s)*([A-Z]+[a-zA-Z]+)\)(?=\s:-)/
+            var staticRegex = /[a-zA-Z]+\(([A-Z]+[a-zA-Z]*\,\s)*([A-Z]+[a-zA-Z]*)\)(?=\s:-)/
             var staticResult = staticRegex.exec(lines[i])
             if (staticResult) {
                 this.predicates.push(new StaticPredicate(staticResult[0],
