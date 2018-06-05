@@ -4,7 +4,6 @@ const config = require("./config")
 
 var collection = new PrologCollection(config)
 collection.analyze()
-collection.removeDuplicates()
 
 /*
 for (var predicate of collection.predicates) {

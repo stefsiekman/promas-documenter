@@ -8,13 +8,15 @@ class Predicate {
 
         this.definition = {}
 
+        this.warnings = []
+
         this.readUsers()
     }
 
     score() {
         var score = this.text.length
 
-        if (this.args) {
+        if (!this.argumentsGenerated) {
             score += 5000
         }
 
@@ -46,6 +48,11 @@ class Predicate {
                 lines.splice(i, 1)
                 i--
             }
+        }
+
+        // Warn if a predicate has no users
+        if (this.users.length < 1) {
+            this.warnings.push('No users specified')
         }
 
         this.text = lines.join('\n')
@@ -133,7 +140,7 @@ class Predicate {
             }
         }
 
-        console.warn("Unspecified argument explained:", name)
+        this.warnings.push('Unspecified argument described')
     }
 
 }
