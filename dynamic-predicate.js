@@ -47,7 +47,7 @@ class DynamicPredicate extends Predicate {
         // Mark as generated arguments, important for score
         this.argumentsGenerated = true
         this.args = []
-        this.warnings.push('Insuffienct argument descriptions found')
+        this.warnings.push('Insufficient call description')
 
         // Name the arguments A, B, C...
         for (var i = 0; i < this.definition.args; i++) {

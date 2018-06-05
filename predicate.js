@@ -129,6 +129,7 @@ class Predicate {
     }
 
     readArgumentDescriptions() {
+        // TODO: read arg descriptions from dynamic predicates
         // Convert back to lines
         var lines = this.text.split('\n')
 
@@ -140,8 +141,10 @@ class Predicate {
         var lineNumber = 0
         while (!lines[lineNumber].match(/^[A-Z][a-zA-Z]*:/)) {
             lineNumber++
-            if (lineNumber >= lines.length) 
+            if (lineNumber >= lines.length)  {
+                this.warnings.push('No arguments described')
                 return
+            }
         }
 
         var descriptionStart = lineNumber
@@ -176,6 +179,13 @@ class Predicate {
         // Remove the description from the text
         lines.splice(descriptionStart, lines.length - descriptionStart)
         this.text = lines.join('\n')
+
+        // Check for missing argument descriptions
+        for (var arg of this.args) {
+            if (!arg.description) {
+                this.warnings.push(`Argument '${arg.name}' missing description`)
+            }
+        }
     }
 
     setArgumentDescription(name, description) {
@@ -183,6 +193,8 @@ class Predicate {
             if (this.args[i].name === name) {
                 this.args[i].description = description
                 return
+            } else {
+                console.log('sufficient', arg)
             }
         }
 
