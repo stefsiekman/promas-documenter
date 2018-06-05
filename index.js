@@ -5,12 +5,9 @@ const config = require("./config")
 var collection = new PrologCollection(config)
 collection.analyze()
 
-/*
-for (var predicate of collection.predicates) {
-    console.log(predicate.definitionName())
-    console.log(predicate.args)
+if (collection.printWarnings()) {
+    console.error('Exiting...')
+    process.exit(1)
 }
-*/
 
-collection.printWarnings()
 collection.write()

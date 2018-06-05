@@ -202,6 +202,15 @@ class Predicate {
     }
 
     markdownUserLink(user) {
+        var userCased = user
+        user = user.toLowerCase()
+
+        // Link to manager documentation
+        if (user.match(/\s*manager$/)) {
+            user = user.replace(' ', '-')
+            return `[${userCased}](documentation/managers/${user})`
+        }
+
         return user
     }
 
