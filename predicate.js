@@ -193,8 +193,6 @@ class Predicate {
             if (this.args[i].name === name) {
                 this.args[i].description = description
                 return
-            } else {
-                console.log('sufficient', arg)
             }
         }
 

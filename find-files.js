@@ -28,8 +28,13 @@ function findInDir(dir, extension, excludes) {
         // Get the path to the file
         var filePath = path.join(dir, file)
 
+        if (!fs.existsSync(filePath)) {
+            continue
+        }
+
         // Call recursively if this is a direcotory
         var stats = fs.lstatSync(filePath)
+
         if (stats.isDirectory()) {
             files = files.concat(findInDir(filePath, extension, excludes))
         }

@@ -12,7 +12,8 @@ const options = cli.parse({
     generate: ['g', 'Generates the markdown files', 'on', false],
     silent: ['s', 'Mutes warnings, only shows the count', 'on', false],
     project: ['p', 'Project repository location', 'dir', config.path.project],
-    wiki: ['w', 'Wiki repository location', 'dir', config.path.wiki]
+    wiki: ['w', 'Wiki repository location', 'dir', config.path.wiki],
+    force: ['f', 'Override branch protection', 'on', false]
 })
 
 if (!fs.existsSync(options.project)) {
@@ -42,8 +43,10 @@ if (options.report || options.generate) {
 if (options.generate) {
     // Only write if the project is checked out on master
     console.log()
-    var branch = gitbranch.sync(options.project)
-    console.log('Project is on branch:', branch)
+    var branch = options.force ? 'master' : gitbranch.sync(options.project)
+
+    if (!options.force)
+        console.log('Project is on branch:', branch)
 
     if (branch !== 'master') {
         console.log('Not on master, files won\'t be generated')
