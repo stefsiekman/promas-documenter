@@ -11,6 +11,20 @@ explain the usage of this tool as briefly as possible.
 - Maybe you want to rename the executable to remove the OS and archetype name
 - Make sure you have the wiki repository cloned somewhere too
 
+## Help
+
+To view the help message, run one of the following commands (depends on your OS):
+
+```bash
+./promas-documenter --help
+```
+
+```bash
+promas-documenter.exe --help
+```
+
+## Generating wiki pages
+
 ## Writing documentation
 
 Documentation can easily be written in the form of a comment above the definition
@@ -63,7 +77,23 @@ average(A, B, Average) :-
   - May span multiple lines
 - Users
   - Line must start with `@user`
-  - Preferably only with the characters `a-zA-Z `
+  - Preferably only with the characters `a-zA-Z` and _space_
 - Description
   - Support markdown, but use minimally. Headers should start at `###` level.
   - End when the first argument is described
+
+## Q&A
+
+### What counts as a comment block?
+
+Every line directly above a predicate definition that counts as a comment.
+Empty lines interrupt a block, so be careful with that, as will an empty line
+above the predicate definition.
+
+### Why does the generation only work from master?
+
+Generating the markdown files will remove all of the files that currently
+exist. Maybe you're deleting some predicate in your branch, which would then
+also remove the predicate from the wiki. That's why the wiki should only be
+updated once a branch has been merged into master. I added the protection just
+as extra security.
