@@ -1,5 +1,8 @@
 const fs = require("fs")
 
+const DynamicPredicate = require('./dynamic-predicate')
+const StaticPredicate = require('./static-predicate')
+
 class PrologFile {
 
     constructor(filename) {
@@ -30,6 +33,8 @@ class PrologFile {
     findPredicates() {
         console.log("analyzing predicates in", this.filename)
 
+        this.predicates = []
+
         var lines = this.lines()
         for (var i = 0; i < lines.length; i++) {
             // Exclude comment lines
@@ -39,14 +44,16 @@ class PrologFile {
             // Try to find dynamic predicates
             var dynamicResult = /([a-zA-Z])+\/([0-9])+/.exec(lines[i])
             if (dynamicResult) {
-                console.log(dynamicResult[0])
+                this.predicates.push(new DynamicPredicate(dynamicResult[0],
+                    this.commentTextBefore(i)))
             }
 
             // Try to find static predicates
             var staticRegex = /[a-zA-Z]+\(([A-Z]+[a-zA-Z]+\,\s)*([A-Z]+[a-zA-Z]+)\)(?=\s:-)/
             var staticResult = staticRegex.exec(lines[i])
             if (staticResult) {
-                console.log(staticResult[0])
+                this.predicates.push(new StaticPredicate(staticResult[0],
+                    this.commentTextBefore(i)))
             }
         }
     }
