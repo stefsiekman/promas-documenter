@@ -166,6 +166,10 @@ class Predicate {
         this.warnings.push('Unspecified argument described')
     }
 
+    markdown() {
+        return "The text generation is not yet implemented."
+    }
+
 }
 
 module.exports = Predicate

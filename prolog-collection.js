@@ -78,6 +78,9 @@ class PrologCollection {
 
         console.log('Pages to write:', 
             staticPages.pages.length + dynamicPages.pages.length)
+
+        staticPages.write("../promas.wiki/documentation/")
+        dynamicPages.write("../promas.wiki/documentation/")
     }
 
     printStats() {
