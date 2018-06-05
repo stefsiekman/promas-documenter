@@ -73,6 +73,29 @@ class Predicate {
         return this.file + ':' + this.line
     }
 
+    pageName() {
+        var chars = this.definition.name.split('')
+
+        if (chars.length < 1)
+            return ""
+
+        var name = chars[0].toLowerCase()
+
+        for (var i = 1; i < chars.length; i++) {
+            var c = chars[i]
+            // Just add lower case letters
+            if (c === c.toLowerCase()) {
+                name += c
+                continue
+            }
+
+            // Otherwise at a dash first
+            name += '-' + c.toLowerCase()
+        }
+
+        return name
+    }
+
     argNamesFrom(string, setDefinition) {
         this.args = []
         for (var arg of string.match(/[A-Z]+[a-zA-Z]*(?!.*\()/g)) {
