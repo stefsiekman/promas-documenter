@@ -144,6 +144,8 @@ class Predicate {
                 return
         }
 
+        var descriptionStart = lineNumber
+
         // Start parsing the descriptions
         var argumentName
         var description
@@ -170,6 +172,10 @@ class Predicate {
         }
 
         this.setArgumentDescription(argumentName, description)
+
+        // Remove the description from the text
+        lines.splice(descriptionStart, lines.length - descriptionStart)
+        this.text = lines.join('\n')
     }
 
     setArgumentDescription(name, description) {
