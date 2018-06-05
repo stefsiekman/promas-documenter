@@ -7,6 +7,8 @@ class Predicate {
         this.line = line
 
         this.definition = {}
+
+        this.readUsers()
     }
 
     score() {
@@ -15,6 +17,8 @@ class Predicate {
         if (this.args) {
             score += 5000
         }
+
+        score += this.users.length * 250
 
         return score
     }
@@ -25,6 +29,26 @@ class Predicate {
 
         return this.definition.name === other.definition.name &&
             this.definition.args === other.definition.args
+    }
+
+    readUsers() {
+        var lines = this.text.split('\n')
+        this.users = []
+
+        for (var i = 0; i < lines.length; i++) {
+            var line = lines[i]
+
+            // See if this is an @user line
+            var matchData = line.match(/^@user\s+/)
+            if (matchData) {
+                this.users.push(line.substring(matchData[0].length))
+                // Remove this line from the text
+                lines.splice(i, 1)
+                i--
+            }
+        }
+
+        this.text = lines.join('\n')
     }
 
     niceName() {
