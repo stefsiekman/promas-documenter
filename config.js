@@ -3,4 +3,5 @@ module.exports = {
         project: "../promas/",
         wiki: "../promas.wiki/"
     },
+    excludes: [".git", "Tests", "knowledge.pl"]
 }
