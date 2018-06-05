@@ -1,3 +1,4 @@
+const PageSet = require('./page-set')
 const findFiles = require("./find-files")
 
 class PrologCollection {
@@ -61,6 +62,24 @@ class PrologCollection {
         })
     }
 
+    write() {
+        var staticPages = new PageSet("predicates")
+        var dynamicPages = new PageSet("dynamic-predicates")
+
+        for (var predicate of this.predicates) {
+            if (predicate.type() === 'static') {
+                staticPages.addPredicate(predicate)
+            } else if (predicate.type() === 'dynamic') {
+                dynamicPages.addPredicate(predicate)
+            } else {
+                console.error('Invalid predicate type:', predicate.type())
+            }
+        }
+
+        console.log('Pages to write:', 
+            staticPages.pages.length + dynamicPages.pages.length)
+    }
+
     printStats() {
         var predicates = this.predicates.length
         var argumentCount = 0
@@ -100,6 +119,8 @@ class PrologCollection {
         }
 
         console.log(`Encountered ${warnings} warnings in total`)
+
+        return warnings !== 0
     }
 
 }

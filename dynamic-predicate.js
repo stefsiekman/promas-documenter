@@ -57,6 +57,10 @@ class DynamicPredicate extends Predicate {
         }
     }
 
+    type() {
+        return "dynamic"
+    }
+
 }
 
 module.exports = DynamicPredicate

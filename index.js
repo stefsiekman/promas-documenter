@@ -13,3 +13,4 @@ for (var predicate of collection.predicates) {
 */
 
 collection.printWarnings()
+collection.write()

@@ -13,6 +13,10 @@ class StaticPredicate extends Predicate {
         return this.name.substring(0, this.name.indexOf('('))
     }
 
+    type() {
+        return "static"
+    }
+
 }
 
 module.exports = StaticPredicate
