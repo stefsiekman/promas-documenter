@@ -32,5 +32,21 @@ of a predicate. The following information can be specified:
 %
 % Id: Given to unit by environment.
 % Type: Name of the type of unit.
+%
+% @user Building manager
 self/2,
+```
+
+### Static predicate example
+
+```prolog
+% Used for calculating the average of two values.
+%
+% A: The first numeric value.
+% B: The second numeric value.
+% Average: The mean of the two numeric values.
+%
+% @user Resource manager
+average(A, B, Average) :-
+     % …
 ```
