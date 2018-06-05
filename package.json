@@ -8,5 +8,8 @@
     "test": "echo \"No tests implemented\""
   },
   "author": "Stef Siekman <s.a.p.siekman@student.tudelft.nl>",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "git-branch": "^2.0.1"
+  }
 }

@@ -52,8 +52,6 @@ class PrologCollection {
         }
 
         this.predicates = newPredicates
-
-        this.printStats()
     }
 
     sort() {
@@ -122,8 +120,6 @@ class PrologCollection {
 
             warnings += predicate.warnings.length
         }
-
-        console.log(`Encountered ${warnings} warnings in total`)
 
         return warnings !== 0
     }
