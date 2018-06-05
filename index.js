@@ -20,7 +20,7 @@ if (!fs.existsSync(options.project)) {
     process.exit(1)
 }
 
-if (option.generate && !fs.existsSync(options.wiki)) {
+if (options.generate && !fs.existsSync(options.wiki)) {
     console.error('Invalid wiki location')
     process.exit(1)
 }
