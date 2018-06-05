@@ -70,7 +70,7 @@ class Predicate {
     }
 
     locationString() {
-        return this.file + ':' + this.line + ':'
+        return this.file + ':' + this.line
     }
 
     argNamesFrom(string, setDefinition) {

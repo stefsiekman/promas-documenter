@@ -74,6 +74,27 @@ class PrologCollection {
         console.log('Warnings     ', warnings)
     }
 
+    printWarnings() {
+        console.log('Warning report:')
+
+        var warnings = 0
+
+        for (var predicate of this.predicates) {
+            if (predicate.warnings.length < 1)
+                continue
+
+            console.log('    ' + predicate.definitionName())
+            for (var warning of predicate.warnings)
+                console.log('        ' + warning)
+
+            console.log('')
+
+            warnings += predicate.warnings.length
+        }
+
+        console.log(`Encountered ${warnings} warnings in total`)
+    }
+
 }
 
 module.exports = PrologCollection
