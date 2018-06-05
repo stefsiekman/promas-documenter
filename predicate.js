@@ -3,6 +3,8 @@ class Predicate {
     constructor(name, text) {
         this.name = name
         this.text = text
+
+        this.definition = {}
     }
 
     score() {
@@ -30,12 +32,16 @@ class Predicate {
         return this.name
     }
 
-    argNamesFrom(string) {
+    argNamesFrom(string, setDefinition) {
         this.args = []
         for (var arg of string.match(/[A-Z]+[a-zA-Z]*(?!.*\()/g)) {
             this.args.push({
                 name: arg
             })
+        }
+
+        if (setDefinition) {
+            this.definition.args = this.args.length
         }
 
         this.readArgumentDescriptions()
@@ -95,7 +101,6 @@ class Predicate {
 
         console.warn("Unspecified argument explained:", name)
     }
-
 
 }
 

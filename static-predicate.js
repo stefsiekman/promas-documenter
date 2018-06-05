@@ -4,13 +4,9 @@ class StaticPredicate extends Predicate {
 
     constructor(name, text) {
         super(name, text)
+        super.argNamesFrom(name, true)
 
-        super.argNamesFrom(name)
-
-        this.definition = {
-            name: this.nameString(),
-            args: this.args.length
-        }
+        this.definition.name = this.nameString()
     }
 
     nameString() {

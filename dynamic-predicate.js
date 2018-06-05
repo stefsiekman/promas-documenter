@@ -27,6 +27,8 @@ class DynamicPredicate extends Predicate {
             super.argNamesFrom(string)
         }
 
+        // In case nothing could be found
+        this.ensureArguments()
     }
 
     nameString() {
@@ -35,6 +37,24 @@ class DynamicPredicate extends Predicate {
 
     argCount() {
         return +(this.name.substring(this.name.indexOf('/') + 1))
+    }
+
+    ensureArguments() {
+        // Nothing to do if all arguments are already specified
+        if (this.definition.args <= (this.args || []).length)
+            return
+
+        // Mark as generated arguments, important for score
+        this.argumentsGenerated = true
+        this.args = []
+        console.warn('No argument names found for:', this.niceName())
+
+        // Name the arguments A, B, C...
+        for (var i = 0; i < this.definition.args; i++) {
+            this.args.push({
+                name: String.fromCharCode(65 + i)
+            })
+        }
     }
 
 }

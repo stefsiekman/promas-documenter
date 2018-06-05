@@ -6,9 +6,7 @@ var collection = new PrologCollection(config)
 collection.analyze()
 collection.removeDuplicates()
 
-/*
 for (var predicate of collection.predicates) {
-    console.log(predicate.score())
+    console.log(predicate.niceName())
 }
-*/
 
