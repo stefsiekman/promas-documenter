@@ -37,6 +37,63 @@ class Predicate {
                 name: arg
             })
         }
+
+        this.readArgumentDescriptions()
+    }
+
+    readArgumentDescriptions() {
+        // Convert back to lines
+        var lines = this.text.split('\n')
+
+        if (lines.length < 1) {
+            return
+        }
+
+        // Skip until we find the first argument description
+        var lineNumber = 0
+        while (!lines[lineNumber].match(/^[A-Z][a-zA-Z]*:/)) {
+            lineNumber++
+            if (lineNumber >= lines.length) 
+                return
+        }
+
+        // Start parsing the descriptions
+        var argumentName
+        var description
+        for (;lineNumber < lines.length; lineNumber++) {
+            var line = lines[lineNumber]
+
+            var matchData = line.match(/^[A-Z][a-zA-Z]*(?=:\s*)/)
+            // See if we start with a new description
+            if (matchData) {
+                // Time to save the current description
+                if (argumentName && description) {
+                    this.setArgumentDescription(argumentName, description)
+                }
+
+                // Start a new description
+                argumentName = matchData[0]
+                description = line.substring(argumentName.length + 1) + ' '
+            } 
+            
+            // Otherwise, just add to the current description
+            else {
+                description += line + ' '
+            }
+        }
+
+        this.setArgumentDescription(argumentName, description)
+    }
+
+    setArgumentDescription(name, description) {
+        for (var i = 0; i < this.args.length; i++) {
+            if (this.args[i].name === name) {
+                this.args[i].description = description
+                return
+            }
+        }
+
+        console.warn("Unspecified argument explained:", name)
     }
 
 
