@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const moment = require('moment')
 const Page = require('./page')
 
 class PageSet {
@@ -16,11 +17,29 @@ class PageSet {
             if (file.endsWith('.md'))
                 fs.unlinkSync(path.join(folderPath, file))
 
-        // TODO: write the index
+        this.writeIndexFile(folder)
 
         for (var page of this.pages) {
             this.writePage(folder, page)
         }
+    }
+
+    writeIndexFile(folder) {
+        var md = '[&laquo; Back](documentation/documentation)\n\n'
+        
+        for (var page of this.pages) {
+            md += ` - [${page.predicates[0].definition.name}]`
+            md += `(documentation/${this.folder}/${page.name})\n`
+        }
+
+        md += '\n'
+
+        md += 'These pages were generated using the [promas documenter tool]'
+        md += '(https://github.com/stefsiekman/promas-documenter) on '
+        md += moment().format("dddd, Do MMMM YYYY, HH:mm:ss") + '.\n\n'
+
+        var indexPath = path.join(folder, this.folder, this.folder + '.md')
+        fs.writeFileSync(indexPath, md)
     }
 
     writePage(folder, page) {
