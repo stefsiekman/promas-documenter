@@ -65,6 +65,23 @@ class Predicate {
         return this.name
     }
 
+    nameWithArguments() {
+        var name = this.definition.name
+
+        if (this.args) {
+            name += '('
+            for (var i = 0; i < this.args.length; i++) {
+                name += this.args[i].name
+
+                if (i !== this.args.length - 1)
+                    name += ', '
+            }
+            name += ')'
+        }
+
+        return name
+    }
+
     definitionName() {
         return this.locationString() + ' ' + this.niceName()
     }
@@ -166,8 +183,49 @@ class Predicate {
         this.warnings.push('Unspecified argument described')
     }
 
+    markdownUserLink(user) {
+        return user
+    }
+
+    markdownUserLinks() {
+        var links = ""
+
+        for (var i = 0; i < this.users.length; i++) {
+            links += this.markdownUserLink(this.users[i])
+
+            if (i !== this.users.length - 1)
+                links += ', '
+        }
+
+        return links
+    }
+
+    markdownArgumentTable() {
+        if (!this.args)
+            return ""
+            
+        var table = '| Argument | Description |\n| --- | --- |\n'
+
+        for (var arg of this.args) {
+            table += `| ${arg.name} | ${arg.description ? arg.description : ''} |\n`
+        }
+
+        return table
+    }
+
     markdown() {
-        return "The text generation is not yet implemented."
+        var md = `<a name="${this.definition.args}"></a>\n`
+        md += `## ${this.nameWithArguments()}\n\n`
+
+        if (this.users.length > 0) {
+            md += `Used by: ${this.markdownUserLinks()}\n\n`
+        } else {
+            md += '_Not used by any agent_\n\n'
+        }
+        md += this.markdownArgumentTable() + '\n'
+        md += this.text
+
+        return md
     }
 
 }
