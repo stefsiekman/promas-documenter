@@ -21,7 +21,7 @@ class PrologFile {
 
         var lines = this.lines()
         for (var i = 0; i < lines.length; i++) {
-            if (/[ \t]*%/.test(lines[i])) {
+            if (/^([ \t]*%)/.test(lines[i])) {
                 this.commentLines.push(i)
             }
         }
@@ -39,6 +39,7 @@ class PrologFile {
             // Try to find dynamic predicates
             var dynamicResult = /([a-zA-Z])+\/([0-9])+/.exec(lines[i])
             if (dynamicResult) {
+                console.log(this.commentTextBefore(i))
                 console.log(dynamicResult[0])
             }
         }
@@ -46,6 +47,35 @@ class PrologFile {
 
     commentLines() {
         return this.commentLines
+    }
+
+    commentTextBefore(lineNumber) {
+        // Go to the line before
+        lineNumber--
+
+        // Find comment lines
+        var lines = this.lines()
+        var commentLines = []
+        while (this.commentLines.includes(lineNumber)) {
+            commentLines.push(lines[lineNumber])
+            lineNumber--
+        }
+
+        // Remove the comment %
+        var textLines = []
+        for (var i = commentLines.length - 1; i >= 0; i--) {
+            var commentLine = commentLines[i]
+
+            var regexResult = /^[ \t]*\%[ \t]*/.exec(commentLine)
+            if (!regexResult) {
+                console.error("Invalid comment format:", commentLine)
+                continue
+            }
+
+            textLines.push(commentLine.substring(regexResult[0].length))
+        }
+
+        return textLines.join('\n')
     }
 
 }
