@@ -121,3 +121,11 @@ exist. Maybe you're deleting some predicate in your branch, which would then
 also remove the predicate from the wiki. That's why the wiki should only be
 updated once a branch has been merged into master. I added the protection just
 as extra security.
+
+### What happens if a predicate is defined multiple times?
+
+In that case, the application picks the definition with the highest score. The
+score is intended to decide which documentation is of a better quality. The
+quality is considered to improve most when using the syntax features (such as
+argument descriptions). If none of these features are present, the length of
+the description is used.
