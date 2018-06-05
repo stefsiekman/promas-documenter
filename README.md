@@ -25,6 +25,30 @@ promas-documenter.exe --help
 
 ## Generating wiki pages
 
+To generate the wiki pages, you will need both repositories (i.e. the project
+and wiki). Assuming you have the executable in your project repository
+directory, you can run the following command to generate a report.
+
+```shell
+./promas-documenter --report
+```
+
+This will show you a list of warnings, so you know where documentation is still
+missing. (Tip: use the `--silent` option if there are too many warnings, and
+only check is the count is going down)
+
+If you want to create wiki pages from the predicates in the master branch, you
+can run the following command. The `--wiki` argument indicates in which
+directory you have the wiki repository. __Make sure this is pulled from the
+remote first.__
+
+```shell
+./promas-documenter --generate --wiki ../promas.wiki
+```
+
+After this is done, don't forget you still have to __commit__ the changes to
+the wiki repository.
+
 ## Writing documentation
 
 Documentation can easily be written in the form of a comment above the definition
