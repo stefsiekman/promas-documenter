@@ -10,6 +10,12 @@ class PageSet {
     }
 
     write(folder) {
+        // Remove the old markdown files
+        var folderPath = path.join(folder, this.folder)
+        for (var file of fs.readdirSync(folderPath))
+            if (file.endsWith('.md'))
+                fs.unlinkSync(path.join(folderPath, file))
+
         // TODO: write the index
 
         for (var page of this.pages) {
@@ -19,20 +25,6 @@ class PageSet {
 
     writePage(folder, page) {
         var pagePath = path.join(folder, this.folder, page.filename())
-
-        // Create a backup if the file will be replaced
-        if (fs.existsSync(pagePath)) {
-            var backupNumber = 1
-            var backupPath = path.join(folder, this.folder, 
-                page.backupFilename(backupNumber))
-
-            while (fs.existsSync(backupPath))
-                backupPath = path.join(folder, this.folder, 
-                    page.backupFilename(++backupNumber))
-
-            fs.renameSync(pagePath, backupPath)
-        }
-
         fs.writeFileSync(pagePath, page.text(this.folder))
     }
 
