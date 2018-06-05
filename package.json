@@ -1,0 +1,11 @@
+{
+  "name": "promas-documenter",
+  "version": "1.0.0",
+  "description": "Generates documentation for the ProMAS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"No tests implemented\""
+  },
+  "author": "Stef Siekman <s.a.p.siekman@student.tudelft.nl>",
+  "license": "MIT"
+}
