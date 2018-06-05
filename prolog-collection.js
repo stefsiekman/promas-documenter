@@ -13,6 +13,7 @@ class PrologCollection {
 
         this.gatherPredicates()
         this.removeDuplicates()
+        this.sort()
     }
 
     gatherPredicates() {
@@ -52,6 +53,12 @@ class PrologCollection {
         this.predicates = newPredicates
 
         this.printStats()
+    }
+
+    sort() {
+        this.predicates.sort((a, b) => {
+            return a.niceName() > b.niceName()
+        })
     }
 
     printStats() {
