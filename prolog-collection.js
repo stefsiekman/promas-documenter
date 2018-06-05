@@ -37,7 +37,7 @@ class PrologCollection {
                     continue
                 }
 
-                if (otherPredicate.score() > predicate.score)
+                if (otherPredicate.score() > predicate.score())
                     predicate = otherPredicate
 
                 // Remove the predicate from the array

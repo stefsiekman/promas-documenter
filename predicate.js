@@ -6,7 +6,13 @@ class Predicate {
     }
 
     score() {
-        return this.text.length
+        var score = this.text.length
+
+        if (this.args) {
+            score += 5000
+        }
+
+        return score
     }
 
     equals(other) {
@@ -23,6 +29,16 @@ class Predicate {
 
         return this.name
     }
+
+    argNamesFrom(string) {
+        this.args = []
+        for (var arg of string.match(/[A-Z]+[a-zA-Z]+(?!.*\()/g)) {
+            this.args.push({
+                name: arg
+            })
+        }
+    }
+
 
 }
 
