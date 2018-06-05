@@ -1,6 +1,6 @@
 module.exports = {
     path: {
-        project: "../promas/",
+        project: ".",
         wiki: "../promas.wiki/"
     },
     excludes: [".git", "Tests", "knowledge.pl"]

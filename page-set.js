@@ -1,3 +1,4 @@
+const cli = require('cli')
 const fs = require('fs')
 const path = require('path')
 const moment = require('moment')
@@ -36,7 +37,8 @@ class PageSet {
 
         md += 'These pages were generated using the [promas documenter tool]'
         md += '(https://github.com/stefsiekman/promas-documenter) on '
-        md += moment().format("dddd, Do MMMM YYYY, HH:mm:ss") + '.\n\n'
+        md += moment().format("dddd, Do MMMM YYYY, HH:mm:ss")
+        md += ` using version ${cli.version}.\n\n`
 
         var indexPath = path.join(folder, this.folder, this.folder + '.md')
         fs.writeFileSync(indexPath, md)

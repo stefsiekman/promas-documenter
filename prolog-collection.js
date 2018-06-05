@@ -1,10 +1,11 @@
+const path = require('path')
 const PageSet = require('./page-set')
 const findFiles = require("./find-files")
 
 class PrologCollection {
 
-    constructor(config) {
-        this.files = findFiles(config.path.project, "pl", config.excludes)
+    constructor(project, excludes) {
+        this.files = findFiles(project, "pl", excludes)
         console.log(`Found ${this.files.length} prolog files to analyze.`)
     }
 
@@ -60,7 +61,7 @@ class PrologCollection {
         })
     }
 
-    write() {
+    write(wiki) {
         var staticPages = new PageSet("predicates")
         var dynamicPages = new PageSet("dynamic-predicates")
 
@@ -77,8 +78,9 @@ class PrologCollection {
         console.log('Pages to write:', 
             staticPages.pages.length + dynamicPages.pages.length)
 
-        staticPages.write("../promas.wiki/documentation/")
-        dynamicPages.write("../promas.wiki/documentation/")
+        var documentationFolder = path.join(wiki, 'documentation')
+        staticPages.write(documentationFolder)
+        dynamicPages.write(documentationFolder)
 
         console.log('Done!')
     }
