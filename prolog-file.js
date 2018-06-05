@@ -31,8 +31,6 @@ class PrologFile {
     }
 
     findPredicates() {
-        console.log("analyzing predicates in", this.filename)
-
         this.predicates = []
 
         var lines = this.lines()

@@ -1,12 +1,13 @@
-const findFiles = require("./find-files")
+const PrologCollection = require('./prolog-collection')
 
 const config = require("./config")
 
-var files = findFiles(config.path.project, "pl", config.excludes)
+var collection = new PrologCollection(config)
+collection.analyze()
+collection.removeDuplicates()
 
-console.log(`Found ${files.length} prolog files to analyze.`)
-
-for (var file of files) {
-    file.analyze()
-    console.log(`${file.filename}: ${file.predicates.length} predicates found`)
+/*
+for (var predicate of collection.predicates) {
+    console.log(predicate.niceName())
 }
+*/
