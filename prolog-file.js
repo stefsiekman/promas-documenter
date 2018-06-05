@@ -13,7 +13,7 @@ class PrologFile {
 
     analyze() {
         this.findCommentLines()
-        this.readDynamicPredicates()
+        this.findPredicates()
     }
 
     findCommentLines() {
@@ -27,8 +27,21 @@ class PrologFile {
         }
     }
 
-    readDynamicPredicates() {
+    findPredicates() {
+        console.log("analyzing predicates in", this.filename)
 
+        var lines = this.lines()
+        for (var i = 0; i < lines.length; i++) {
+            // Exclude comment lines
+            if (this.commentLines.includes(i))
+                continue
+
+            // Try to find dynamic predicates
+            var dynamicResult = /([a-zA-Z])+\/([0-9])+/.exec(lines[i])
+            if (dynamicResult) {
+                console.log(dynamicResult[0])
+            }
+        }
     }
 
     commentLines() {
