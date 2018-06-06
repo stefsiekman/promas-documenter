@@ -16,7 +16,7 @@ class Page {
     }
 
     backLink(pageSetName) {
-        return `[&laquo; Back](documentation/${pageSetName}/${pageSetName}.md)`
+        return `[&laquo; Back](documentation/${pageSetName}/${pageSetName})`
     }
 
     filename() {

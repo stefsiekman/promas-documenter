@@ -232,7 +232,7 @@ class Predicate {
         var table = '| Argument | Description |\n| --- | --- |\n'
 
         for (var arg of this.args) {
-            table += `| ${arg.name} | ${arg.description ? arg.description : ''} |\n`
+            table += `| \`${arg.name}\` | ${arg.description ? arg.description : ''} |\n`
         }
 
         return table
