@@ -226,7 +226,7 @@ class Predicate {
     }
 
     markdownArgumentTable() {
-        if (!this.args)
+        if (!this.args || this.args.every((val) => !val.description))
             return ""
             
         var table = '| Argument | Description |\n| --- | --- |\n'
@@ -244,8 +244,6 @@ class Predicate {
 
         if (this.users.length > 0) {
             md += `Used by: ${this.markdownUserLinks()}\n\n`
-        } else {
-            md += '_Not used by any agent_\n\n'
         }
         md += this.markdownArgumentTable() + '\n'
         md += this.text
