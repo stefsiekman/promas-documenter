@@ -181,7 +181,7 @@ class Predicate {
         this.text = lines.join('\n')
 
         // Check for missing argument descriptions
-        for (var arg of this.args) {
+        for (var arg of (this.args || [])) {
             if (!arg.description) {
                 this.warnings.push(`Argument '${arg.name}' missing description`)
             }
@@ -189,7 +189,7 @@ class Predicate {
     }
 
     setArgumentDescription(name, description) {
-        for (var i = 0; i < this.args.length; i++) {
+        for (var i = 0; i < (this.args || []).length; i++) {
             if (this.args[i].name === name) {
                 this.args[i].description = description
                 return
