@@ -12,6 +12,11 @@ class Predicate {
 
     this.readUsers()
     this.inferUsersFromFile()
+
+    this.texts = [{
+      users: this.headingUserName(),
+      text: this.text
+    }]
   }
 
   merge(other) {
@@ -42,8 +47,26 @@ class Predicate {
       this.args = other.args
     }
 
-    // Merge the text by adding headings
-    this.text = `${this.headedText()}\n\n\n\n${other.headedText()}`
+    // Merge texts
+    for (var text of other.texts) {
+      // Find out if this is a new user set
+      var newUser = true
+      for (var i = 0; i < this.texts.length; i++) {
+        if (this.texts[i].users === text.users) {
+          newUser = false
+
+          // Add the text
+          this.texts[i].text += "\n\n" + text.text
+
+          break
+        }
+      }
+
+      // Just add new user sets
+      if (newUser) {
+        this.texts.push(text)
+      }
+    }
   }
 
   score () {
@@ -345,7 +368,11 @@ class Predicate {
       md += `Used by: ${this.markdownUserLinks()}\n\n`
     }
     md += this.markdownArgumentTable() + '\n'
-    md += this.text
+
+    // Add the texts
+    for (var text of this.texts) {
+      md += `### ${text.users}\n\n${text.text}\n\n`
+    }
 
     return md
   }
