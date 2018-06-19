@@ -46,15 +46,16 @@ class PrologFile {
       var dynamicResult = /([a-zA-Z])+\/([0-9])+(?=[.,])/.exec(lines[i])
       if (dynamicResult) {
         this.predicates.push(new DynamicPredicate(dynamicResult[0],
-                    this.commentTextBefore(i), this.filename, i + 1))
+          this.commentTextBefore(i), this.filename, i + 1))
       }
 
       // Try to find static predicates
-      var staticRegex = /[a-zA-Z]+\(([A-Z]+[a-zA-Z]*,\s)*([A-Z]+[a-zA-Z]*)\)(?=\s:-)/
+      // Yes, this is a monster. I highly recommend regexr.com
+      var staticRegex = /[a-zA-Z]+\((((\[((_|([A-Z]+[a-zA-Z]*))\s*(,|\|)\s*)*(_|([A-Z]+[a-zA-Z]*))\])|_|([A-Z]+[a-zA-Z]*)),\s*)*((\[((_|([A-Z]+[a-zA-Z]*))\s*(,|\|)\s*)*(_|([A-Z]+[a-zA-Z]*))\])|_|([A-Z]+[a-zA-Z]*))\)(?=\s*(:-|.))/
       var staticResult = staticRegex.exec(lines[i])
       if (staticResult) {
         this.predicates.push(new StaticPredicate(staticResult[0],
-                    this.commentTextBefore(i), this.filename, i + 1))
+          this.commentTextBefore(i), this.filename, i + 1))
       }
     }
   }

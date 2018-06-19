@@ -80,7 +80,7 @@ class PrologCollection {
     }
 
     console.log('Pages to write:',
-            staticPages.pages.length + dynamicPages.pages.length)
+      staticPages.pages.length + dynamicPages.pages.length)
 
     var documentationFolder = path.join(wiki, 'documentation')
     staticPages.write(documentationFolder)
