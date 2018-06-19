@@ -98,9 +98,25 @@ class Predicate {
       manager = manager.replace("Scv", "SCV")
       if (!this.users.includes(manager)) {
         this.users.push(manager)
-        console.log("Inferred", manager, "from:", this.file)
       }
       return
+    }
+
+    // Read agents
+    var agentMatch = this.file.match(/^[A-Z][A-Za-z]+(?=Agent\.pl$)/)
+    if (agentMatch) {
+      var agent = `${agentMatch[0]} agent`
+      if (!this.users.includes(agent)) {
+        this.users.push(agent)
+      }
+      return
+    }
+
+    // TerranSCV (Because someone couldn't be consistent with filenaming)
+    if (this.file === "TerranSCV.pl") {
+      if (!this.users.includes("SCV agent")) {
+        this.users.push("SCV agent")
+      }
     }
   }
 
