@@ -244,7 +244,7 @@ class Predicate {
 
   argNamesFrom (string, setDefinition) {
     this.args = []
-    for (var arg of string.match(/((\[((_|([A-Z]+[a-zA-Z]*)),\s*)*(_|([A-Z]+[a-zA-Z]*))\])|_|([A-Z]+[a-zA-Z]*))(?!.*\()/g)) {
+    for (var arg of string.match(/((\[((_|([A-Z]+[a-zA-Z]*))\s*(,|\|)\s*)*(_|([A-Z]+[a-zA-Z]*))\])|_|([A-Z]+[a-zA-Z]*))(?!.*\()/g)) {
       this.args.push({
         name: arg
       })
