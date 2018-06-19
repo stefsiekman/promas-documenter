@@ -385,6 +385,40 @@ class Predicate {
 
     return md
   }
+
+  latex () {
+    var latex =`\\texttt{${this.niceName()}} & \\begin{tabular}{@{}p{4.5cm}@{}}`
+
+    // Add the arguments
+    for (var arg of (this.args || [])) {
+      latex += `\\texttt{${this.latexParse(arg.name)}}\\\\${this.latexParse(arg.description)}\\\\[5pt]`
+    }
+    latex += `\\end{tabular} & \\begin{tabular}{@{}p{5.5cm}@{}}`
+
+    // Add the textx
+    for (var text of this.texts) {
+      latex += `\\textbf{${this.latexParse(text.users)}}\\\\${this.latexParse(text.text)}\\\\`
+    }
+    latex += `\\end{tabular}`
+
+    return latex + "\\\\ \\midrule "
+  }
+
+  latexParse (str) {
+    str = str || ""
+    str = str.replace(/\\/g, "\\textbackslash")
+    str = str.replace(/&/g, "\\&")
+    str = str.replace(/%/g, "\\%")
+    str = str.replace(/\$/g, "\\$")
+    str = str.replace(/#/g, "\\#")
+    str = str.replace(/_/g, "\\_")
+    str = str.replace(/{/g, "\\{")
+    str = str.replace(/}/g, "\\}")
+    str = str.replace(/~/g, "\\textasciitilde")
+    str = str.replace(/\^/g, "\\textasciicircum")
+    str = str.replace(/\[.*\]/, "{$&}")
+    return str
+  }
 }
 
 module.exports = Predicate

@@ -5,7 +5,11 @@ class Page {
   }
 
   latex () {
-
+    var latex = ""
+    for (var predicate of this.predicates) {
+      latex += predicate.latex() + "\n"
+    }
+    return latex
   }
 
   text (pageSetName) {

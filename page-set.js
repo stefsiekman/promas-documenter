@@ -29,7 +29,7 @@ class PageSet {
     console.log('Writing file', filename)
     var latex = `\\bgroup
 \\small
-\\begin{longtable}{p{3.5cm}p{4.5cm}p{6.5cm}}
+\\begin{longtable}{p{4.5cm}p{4.5cm}p{5.5cm}}
 
 \\toprule
 Predicate & Arguments & Description \\\\
@@ -42,7 +42,7 @@ Predicate & Arguments & Description \\\\
 \\endhead\n`
 
     for (var page of this.pages) {
-      latex += 'Predicate & with some & content!\\\\\n'
+      latex += page.latex()
     }
 
     latex += `\\bottomrule
