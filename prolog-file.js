@@ -17,6 +17,10 @@ class PrologFile {
   analyze () {
     this.findCommentLines()
     this.findPredicates()
+
+    for (var i = 0; i < this.predicates.length; i++) {
+      this.predicates[i].createTextSet()
+    }
   }
 
   findCommentLines () {

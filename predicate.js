@@ -13,6 +13,13 @@ class Predicate {
     this.readUsers()
     this.inferUsersFromFile()
 
+  }
+
+  /**
+   * Creates a set of texts. Should be called before merging but after text
+   * processing.
+   */
+  createTextSet () {
     this.texts = [{
       users: this.headingUserName(),
       text: this.text
