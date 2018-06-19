@@ -171,7 +171,7 @@ class Predicate {
 
   headingUserName () {
     if (this.users.length < 1) {
-      return 'Unknown'
+      return 'All agents'
     }
 
     // Add users followed by commas, &'s or nothing
