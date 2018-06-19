@@ -110,11 +110,6 @@ class Predicate {
       }
     }
 
-    // Warn if a predicate has no users
-    if (this.users.length < 1) {
-      this.warnings.push('No users specified')
-    }
-
     this.text = lines.join('\n')
   }
 
