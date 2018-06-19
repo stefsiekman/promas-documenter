@@ -1,4 +1,5 @@
 class Predicate {
+
   constructor (name, text, file, line) {
     this.name = name
     this.text = text
@@ -10,6 +11,26 @@ class Predicate {
     this.warnings = []
 
     this.readUsers()
+  }
+
+  merge(other) {
+    console.log(`Merging ${this.niceName()} with ${other.niceName()}`)
+
+    // Use the args from the one with the most extensive descriptions
+    var selfDescCount = 0
+    if (this.args) {
+      this.args.forEach((a) => { selfDescCount += (a.description||"").length })
+    }
+    var othrDescCount = 0
+    if (other.args) {
+      other.args.forEach((a) => { othrDescCount += (a.description||"").length })
+    }
+    this.args = selfDescCount >= othrDescCount ? this.args : other.args
+
+    // Merge the text by adding headings
+    this.text = `${this.headedText()}\n\n\n\n${other.headedText()}`
+    console.log("Text after merge:")
+    console.log(this.text)
   }
 
   score () {
@@ -80,6 +101,48 @@ class Predicate {
 
   definitionName () {
     return this.locationString() + ' ' + this.niceName()
+  }
+
+  headingUserName () {
+    if (this.users.length < 1) {
+      return "Unknown"
+    }
+
+    // Add users followed by commas, &'s or nothing
+    var name = ""
+    for (var i = 0; i < this.users.length; i++) {
+      name += this.users[i]
+
+      // Add commas
+      if (i < this.users.length - 2) {
+        name += ", "
+        continue
+      }
+
+      // Add ampersand
+      if (i < this.users.length - 1) {
+        name += " & "
+      }
+    }
+
+    return name
+  }
+
+  /**
+   * Returns the text of this predicate with a markdown heading of the user.
+   */
+  headedText() {
+    // Return nothing if there is no text
+    if (this.text.match(/^\s*$/)) {
+      return ""
+    }
+    // Return as-is if it already has a title
+    if (this.text.match(/^\s*### /)) {
+      return this.text
+    }
+
+    // Otherwise, add the title
+    return `### ${this.headingUserName()}\n\n${this.text}`
   }
 
   locationString () {

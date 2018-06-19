@@ -30,7 +30,7 @@ class PrologCollection {
     while (this.predicates.length > 0) {
       var predicate = this.predicates.pop()
 
-      // Find the highest score
+      // Find duplicate predicates
       for (var i = 0; i < this.predicates.length; i++) {
         var otherPredicate = this.predicates[i]
 
@@ -38,7 +38,8 @@ class PrologCollection {
           continue
         }
 
-        if (otherPredicate.score() > predicate.score()) { predicate = otherPredicate }
+        // Copy the information from this other predicate to the original
+        predicate.merge(otherPredicate)
 
         // Remove the predicate from the array
         this.predicates.splice(i, 1)
