@@ -14,7 +14,7 @@ class PageSet {
     // Remove the old markdown files
     var folderPath = path.join(folder, this.folder)
     for (var file of fs.readdirSync(folderPath)) {
-      if (file.endsWith('.md'))        { fs.unlinkSync(path.join(folderPath, file)) }
+      if (file.endsWith('.md')) { fs.unlinkSync(path.join(folderPath, file)) }
     }
 
     this.writeIndexFile(folder)

@@ -1,5 +1,4 @@
 class Predicate {
-
   constructor (name, text, file, line) {
     this.name = name
     this.text = text
@@ -12,7 +11,6 @@ class Predicate {
 
     this.readUsers()
     this.inferUsersFromFile()
-
   }
 
   /**
@@ -26,31 +24,31 @@ class Predicate {
     }]
   }
 
-  merge(other) {
+  merge (other) {
     // Count the desciption sizes of the arguments
     var selfDescCount = 0
     if (this.args) {
-      this.args.forEach((a) => { selfDescCount += (a.description||"").length })
+      this.args.forEach((a) => { selfDescCount += (a.description || '').length })
     }
     var othrDescCount = 0
     if (other.args) {
-      other.args.forEach((a) => { othrDescCount += (a.description||"").length })
+      other.args.forEach((a) => { othrDescCount += (a.description || '').length })
     }
 
     // Count the name sizes of the arguments
     var selfNameCount = 0
     if (this.args) {
-      this.args.forEach((a) => { selfNameCount += (a.name||"").length })
+      this.args.forEach((a) => { selfNameCount += (a.name || '').length })
     }
     var othrNameCount = 0
     if (other.args) {
-      other.args.forEach((a) => { othrNameCount += (a.name||"").length })
+      other.args.forEach((a) => { othrNameCount += (a.name || '').length })
     }
 
     // Set the description first based on description, otherwise names
     if (selfDescCount < othrDescCount) {
       this.args = other.args
-    } else if (selfNameCount < othrNameCount){
+    } else if (selfNameCount < othrNameCount) {
       this.args = other.args
     }
 
@@ -63,7 +61,7 @@ class Predicate {
           newUser = false
 
           // Add the text
-          this.texts[i].text += "\n\n" + text.text
+          this.texts[i].text += '\n\n' + text.text
 
           break
         }
@@ -125,7 +123,7 @@ class Predicate {
     var managerMatch = this.file.match(/^[A-Z][A-Za-z]+(?=Manager\.pl$)/)
     if (managerMatch) {
       var manager = `${managerMatch[0]} manager`
-      manager = manager.replace("Scv", "SCV")
+      manager = manager.replace('Scv', 'SCV')
       if (!this.users.includes(manager)) {
         this.users.push(manager)
       }
@@ -143,9 +141,9 @@ class Predicate {
     }
 
     // TerranSCV (Because someone couldn't be consistent with filenaming)
-    if (this.file === "TerranSCV.pl") {
-      if (!this.users.includes("SCV agent")) {
-        this.users.push("SCV agent")
+    if (this.file === 'TerranSCV.pl') {
+      if (!this.users.includes('SCV agent')) {
+        this.users.push('SCV agent')
       }
     }
   }
@@ -178,23 +176,23 @@ class Predicate {
 
   headingUserName () {
     if (this.users.length < 1) {
-      return "Unknown"
+      return 'Unknown'
     }
 
     // Add users followed by commas, &'s or nothing
-    var name = ""
+    var name = ''
     for (var i = 0; i < this.users.length; i++) {
       name += this.users[i]
 
       // Add commas
       if (i < this.users.length - 2) {
-        name += ", "
+        name += ', '
         continue
       }
 
       // Add ampersand
       if (i < this.users.length - 1) {
-        name += " & "
+        name += ' & '
       }
     }
 
@@ -204,10 +202,10 @@ class Predicate {
   /**
    * Returns the text of this predicate with a markdown heading of the user.
    */
-  headedText() {
+  headedText () {
     // Return nothing if there is no text
     if (this.text.match(/^\s*$/)) {
-      return ""
+      return ''
     }
     // Return as-is if it already has a title
     if (this.text.match(/^\s*### /)) {
@@ -297,10 +295,9 @@ class Predicate {
         // Start a new description
         argumentName = matchData[0]
         description = line.substring(argumentName.length + 1) + ' '
-      }
 
       // Otherwise, just add to the current description
-      else {
+      } else {
         description += line + ' '
       }
     }
