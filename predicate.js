@@ -14,9 +14,7 @@ class Predicate {
   }
 
   merge(other) {
-    console.log(`Merging ${this.niceName()} with ${other.niceName()}`)
-
-    // Use the args from the one with the most extensive descriptions
+    // Count the desciption sizes of the arguments
     var selfDescCount = 0
     if (this.args) {
       this.args.forEach((a) => { selfDescCount += (a.description||"").length })
@@ -25,12 +23,26 @@ class Predicate {
     if (other.args) {
       other.args.forEach((a) => { othrDescCount += (a.description||"").length })
     }
-    this.args = selfDescCount >= othrDescCount ? this.args : other.args
+
+    // Count the name sizes of the arguments
+    var selfNameCount = 0
+    if (this.args) {
+      this.args.forEach((a) => { selfNameCount += (a.name||"").length })
+    }
+    var othrNameCount = 0
+    if (other.args) {
+      other.args.forEach((a) => { othrNameCount += (a.name||"").length })
+    }
+
+    // Set the description first based on description, otherwise names
+    if (selfDescCount < othrDescCount) {
+      this.args = other.args
+    } else if (selfNameCount < othrNameCount){
+      this.args = other.args
+    }
 
     // Merge the text by adding headings
     this.text = `${this.headedText()}\n\n\n\n${other.headedText()}`
-    console.log("Text after merge:")
-    console.log(this.text)
   }
 
   score () {
