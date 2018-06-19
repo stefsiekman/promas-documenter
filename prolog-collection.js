@@ -53,14 +53,15 @@ class PrologCollection {
 
   sort () {
     this.predicates.sort((a, b) => {
-      return a.niceName() > b.niceName()
+      var aName = a.niceName().toLowerCase()
+      var bName = b.niceName().toLowerCase()
+      if (aName < bName) {
+        return -1
+      } else if (aName > bName) {
+        return 1
+      }
+      return 0
     })
-
-    // Print the sorted list
-    console.log('Sorted list')
-    for (var predicate of this.predicates) {
-      console.log(predicate.niceName())
-    }
   }
 
   write (wiki) {
