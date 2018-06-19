@@ -4,6 +4,10 @@ class Page {
     this.predicates = []
   }
 
+  latex () {
+
+  }
+
   text (pageSetName) {
     var text = this.backLink(pageSetName) + '\n\n'
 

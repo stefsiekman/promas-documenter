@@ -10,6 +10,7 @@ cli.setApp('ProMAS Documenter', require('./package.json').version)
 const options = cli.parse({
   report: ['r', 'Report on the documentation, parses the Prolog', 'on', false],
   generate: ['g', 'Generates the markdown files', 'on', false],
+  latex: ['l', 'Generates report latex files', 'on', false],
   silent: ['s', 'Mutes warnings, only shows the count', 'on', false],
   project: ['p', 'Project repository location', 'dir', config.path.project],
   wiki: ['w', 'Wiki repository location', 'dir', config.path.wiki],
@@ -26,20 +27,20 @@ if (options.generate && !fs.existsSync(options.wiki)) {
   process.exit(1)
 }
 
-if (!options.report && !options.generate) {
+if (!options.report && !options.generate && !options.latex) {
   console.log('No action specified, see help.')
   process.exit()
 }
 
 var collection = new PrologCollection(options.project, config.excludes)
 
-if (options.report || options.generate) {
+if (options.report || options.generate || options.latex) {
   collection.analyze()
   if (!options.silent) { collection.printWarnings() }
   collection.printStats()
 }
 
-if (options.generate) {
+if (options.generate || options.latex) {
   // Only write if the project is checked out on master
   console.log()
   var branch = options.force ? 'master' : gitbranch.sync(options.project)
@@ -51,5 +52,11 @@ if (options.generate) {
     process.exit()
   }
 
-  collection.write(options.wiki)
+  if (options.generate) {
+    collection.write(options.wiki)
+  }
+
+  if (options.latex) {
+    collection.writeLatex()
+  }
 }

@@ -24,6 +24,34 @@ class PageSet {
     }
   }
 
+  writeLatex (folder) {
+    var filename = path.join(folder, `app-a-${this.folder}.tex`)
+    console.log('Writing file', filename)
+    var latex = `\\bgroup
+\\small
+\\begin{longtable}{p{3.5cm}p{4.5cm}p{6.5cm}}
+
+\\toprule
+Predicate & Arguments & Description \\\\
+\\toprule
+\\endfirsthead
+
+\\toprule
+Predicate & Arguments & Description \\\\
+\\toprule
+\\endhead\n`
+
+    for (var page of this.pages) {
+      latex += 'Predicate & with some & content!\\\\\n'
+    }
+
+    latex += `\\bottomrule
+\\end{longtable}
+\\egroup`
+
+    fs.writeFileSync(filename, latex)
+  }
+
   writeIndexFile (folder) {
     var md = '[&laquo; Back](documentation/documentation)\n\n'
 

@@ -4,6 +4,7 @@ const findFiles = require('./find-files')
 
 class PrologCollection {
   constructor (project, excludes) {
+    this.project = project
     this.files = findFiles(project, 'pl', excludes)
     console.log(`Found ${this.files.length} prolog files to analyze.`)
   }
@@ -85,8 +86,24 @@ class PrologCollection {
     var documentationFolder = path.join(wiki, 'documentation')
     staticPages.write(documentationFolder)
     dynamicPages.write(documentationFolder)
+  }
 
-    console.log('Done!')
+  writeLatex () {
+    var staticPages = new PageSet('predicates')
+    var dynamicPages = new PageSet('dynamic-predicates')
+
+    for (var predicate of this.predicates) {
+      if (predicate.type() === 'static') {
+        staticPages.addPredicate(predicate)
+      } else if (predicate.type() === 'dynamic') {
+        dynamicPages.addPredicate(predicate)
+      } else {
+        console.error('Invalid predicate type:', predicate.type())
+      }
+    }
+
+    staticPages.writeLatex(path.join(this.project, 'report'))
+    dynamicPages.writeLatex(path.join(this.project, 'report'))
   }
 
   printStats () {
