@@ -46,7 +46,7 @@ class PrologFile {
       var dynamicResult = /([a-zA-Z])+\/([0-9])+(?=[.,])/.exec(lines[i])
       if (dynamicResult) {
         this.predicates.push(new DynamicPredicate(dynamicResult[0],
-                    this.commentTextBefore(i), this.filename, i + 1))
+          this.commentTextBefore(i), this.filename, i + 1))
       }
 
       // Try to find static predicates
@@ -55,7 +55,7 @@ class PrologFile {
       var staticResult = staticRegex.exec(lines[i])
       if (staticResult) {
         this.predicates.push(new StaticPredicate(staticResult[0],
-                    this.commentTextBefore(i), this.filename, i + 1))
+          this.commentTextBefore(i), this.filename, i + 1))
       }
     }
   }
