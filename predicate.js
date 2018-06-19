@@ -11,6 +11,7 @@ class Predicate {
     this.warnings = []
 
     this.readUsers()
+    this.inferUsersFromFile()
   }
 
   merge(other) {
@@ -87,6 +88,20 @@ class Predicate {
     }
 
     this.text = lines.join('\n')
+  }
+
+  inferUsersFromFile () {
+    // Read managers
+    var managerMatch = this.file.match(/^[A-Z][A-Za-z]+(?=Manager\.pl$)/)
+    if (managerMatch) {
+      var manager = `${managerMatch[0]} manager`
+      manager = manager.replace("Scv", "SCV")
+      if (!this.users.includes(manager)) {
+        this.users.push(manager)
+        console.log("Inferred", manager, "from:", this.file)
+      }
+      return
+    }
   }
 
   niceName () {
