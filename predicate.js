@@ -378,6 +378,11 @@ class Predicate {
 
     // Add the texts
     for (var text of this.texts) {
+      // Don't add empty texts
+      if (text.text.match(/^\s*$/)) {
+        continue
+      }
+
       md += `### ${text.users}\n\n${text.text}\n\n`
     }
 
