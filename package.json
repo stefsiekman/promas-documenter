@@ -3,7 +3,9 @@
   "version": "1.0.3",
   "description": "Generates documentation for the ProMAS",
   "main": "index.js",
-  "bin": "index.js",
+  "bin": {
+    "promas-documenter": "index.js"
+  },
   "scripts": {
     "start": "node index.js",
     "build": "pkg -t win-x64,win-x86,macos-x64,macos-x86 --out-path dist/ .",
