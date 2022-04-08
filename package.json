@@ -16,7 +16,7 @@
   "dependencies": {
     "cli": "^1.0.1",
     "git-branch": "^2.0.1",
-    "moment": "^2.22.2"
+    "moment": "^2.29.2"
   },
   "devDependencies": {}
 }
